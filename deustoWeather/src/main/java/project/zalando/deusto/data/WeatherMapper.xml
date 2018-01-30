@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.zalando.deusto.data.WeatherMapper">
+
+	<resultMap id="WeatherMap" type="project.zalando.deusto.vo.WeatherVO">
+		<result property="date" column="DATE" />
+		<result property="temperatureMin" column="TEMPERATUREMIN" />
+		<result property="temperatureMax" column="TEMPERATUREMAX" />
+		<result property="dayDesc" column="DAYDESC" />
+		<result property="nightDesc" column="NIGHTDESC" />
+		<result property="city" column="CITY" />
+	</resultMap>
+
+	<insert id="addWeather" parameterType="project.zalando.deusto.vo.WeatherVO">
+		INSERT INTO Weather
+		VALUES(#{date}, #{temperatureMin}, #{temperatureMax}, #{dayDesc}, #{nightDesc}, #{city})
+	</insert>
+
+	<select id="getWeatherByCity" parameterType="java.lang.String"
+		resultMap="WeatherMap">
+		SELECT * FROM Weather WHERE city = #{city}
+	</select>
+
+	<delete id="dropWeather" parameterType="java.lang.String">
+		DELETE FROM Weather WHERE
+		city = #{city}
+	</delete>
+
+</mapper>
